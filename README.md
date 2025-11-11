@@ -52,5 +52,11 @@ Dieses Script verwendet eine for-Schlaufe, um die einzelnen Pixel schrittweise a
 ## Interessantere Form
 Wenn wir eine interessantere Form haben wollen, müssen wir dem Roboter mehr Koordinaten liefern. [🛠️ Hier haben wir zum Beispiel einen Kreis](scripts/kreis_manuell_punkte/kreis_manuell_punkte.ino).
 
+## Koordinaten auslesen
+Mit Hilfe der Lehre können wir unsere Koordinaten ab einer Vorlage abpausen.
+<video src="demo/lehre_sm.mp4" style="width: 80%; margin: auto; display: block;" />
+
 ## Immer komplizierter
 Von hier an können wir immer komplizierter werden. Wir haben zum Beispiel die [🛠️ 5 Punkte eines Pentagramms (Fünzackiger Stern)](scriptS/sterndli/sterndli.ino), die wir mit einer [🛠️ mathermatischen Interpolation](scripts/sterndli_interpol/sterndli_interpol.ino) immer feiner machen können.
+
+<video src="demo/sterndli_sm.mp4" style="width: 80%; margin: auto; display: block;" />
