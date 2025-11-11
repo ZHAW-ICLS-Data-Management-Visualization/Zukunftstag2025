@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Inverse Kinematik Demo</title>
+<svg style="display:none">
+<defs>
+<g id="svg-cubo">
+<path d="m -4.25,32.25 v -20 h -55.5 v 20 z m -14.3508,-10.6257 0.1466,-0.6104 0.2402,-0.5799 0.3279,-0.5351 0.4077,-0.4773 0.4773,-0.4077 0.5351,-0.3279 0.5799,-0.2402 0.6104,-0.1465 0.6257,-0.0493 0.6257,0.0493 0.6104,0.1465 0.5799,0.2402 0.5351,0.3279 0.4773,0.4077 0.4077,0.4773 0.3279,0.5351 0.2402,0.5799 0.1466,0.6104 0.0492,0.6257 -0.0492,0.6257 -0.1466,0.6104 -0.2402,0.5799 -0.3279,0.5352 -0.4077,0.4772 -0.4773,0.4077 -0.5351,0.3279 -0.5799,0.2402 -0.6104,0.1466 -0.6257,0.0492 -0.6257,-0.0492 -0.6104,-0.1466 -0.5799,-0.2402 -0.5351,-0.3279 -0.4773,-0.4077 -0.4077,-0.4772 -0.3279,-0.5352 -0.2402,-0.5799 -0.1466,-0.6104 L -18.65,22.25 Z m -34.7,0 0.1466,-0.6104 0.2402,-0.5799 0.3279,-0.5351 0.4077,-0.4773 0.4773,-0.4077 0.5351,-0.3279 0.5799,-0.2402 0.6104,-0.1465 0.6257,-0.0493 0.6257,0.0493 0.6104,0.1465 0.5799,0.2402 0.5351,0.3279 0.4773,0.4077 0.4077,0.4773 0.3279,0.5351 0.2402,0.5799 0.1466,0.6104 0.0492,0.6257 -0.0492,0.6257 -0.1466,0.6104 -0.2402,0.5799 -0.3279,0.5352 -0.4077,0.4772 -0.4773,0.4077 -0.5351,0.3279 -0.5799,0.2402 -0.6104,0.1466 -0.6257,0.0492 -0.6257,-0.0492 -0.6104,-0.1466 -0.5799,-0.2402 -0.5351,-0.3279 -0.4773,-0.4077 -0.4077,-0.4772 -0.3279,-0.5352 -0.2402,-0.5799 -0.1466,-0.6104 L -53.35,22.25 Z" stroke="#000" fill="#d3d3d3" stroke-width="0.5"/>
+</g>
+<g id="svg-kreuzarm">
+<path d="m -10.249227,-19.749228 -1.17326,0.0923 -1.14438,0.2748 -1.0873,0.4504 -1.00346,0.6149 -0.89491,0.7643 -0.76433,0.8949 -0.61492,1.0035 -0.45037,1.0873 -0.27474,1.1444 -0.09233,1.1732 0.09233,1.1733 0.27474,1.1443005 0.45037,1.0873 0.61492,1.0035 0.76433,0.8949 0.30331,0.259 V 45.273542 l -0.10902,0.02618 -0.14498,0.06004 -0.13379,0.082 -0.11932,0.10192 -0.10191,0.11931 -0.08199,0.1338 -0.06006,0.14497 -0.03662,0.15258 -0.01231,0.15643 v 5 l 0.01231,0.15643 0.03662,0.15258 0.06006,0.14497 0.08199,0.1338 0.10191,0.11931 0.11932,0.10192 0.13379,0.082 0.14498,0.06004 0.10902,0.02618 v 13.52277 l 0.03693,0.4693 0.10989,0.4577 0.18016,0.435 0.24596,0.4014 0.30574,0.3579 0.35795,0.3057 0.40139,0.246 0.43492,0.1802 0.45775,0.1099 0.46931,0.0369 h 3.9999999 l 0.4693,-0.0369 0.4577,-0.1099 0.435,-0.1802 0.4014,-0.246 0.3579,-0.3057 0.3057,-0.3579 0.246,-0.4014 0.1802,-0.435 0.1099,-0.4577 0.0369,-0.4693 v -13.52278 l 0.109,-0.02617 0.145,-0.06004 0.1338,-0.082 0.1193,-0.10192 0.1019,-0.11931 0.082,-0.1338 0.0601,-0.14497 0.0366,-0.15258 0.0123,-0.15643 v -5 l -0.0123,-0.15643 -0.0366,-0.15258 -0.0601,-0.14497 -0.082,-0.1338 -0.1019,-0.11931 -0.1193,-0.10192 -0.1338,-0.082 -0.145,-0.06004 -0.109,-0.02617 V -6.6869275 l 0.3033,-0.259 0.7643,-0.8949 0.6149,-1.0035 0.4504,-1.0873 0.2748,-1.1443005 0.0923,-1.1733 -0.0923,-1.1732 -0.2748,-1.1444 -0.4504,-1.0873 -0.6149,-1.0035 -0.7643,-0.8949 -0.8949,-0.7643 -1.0035,-0.6149 -1.0873,-0.4504 -1.1444,-0.2748 z m 0.6256999,78.44923 0.6104,0.14657 0.5798,0.2402 0.5352,0.3279 0.4773,0.4077 0.4077,0.4773 0.3279,0.5351 0.2402,0.5799 0.1465,0.6104 0.0493,0.6257 -0.0493,0.6257 -0.1465,0.6104 -0.2402,0.5799 -0.3279,0.5351 -0.4077,0.4773 -0.4773,0.4077 -0.5352,0.3279 -0.5798,0.2402 -0.6104,0.1466 -0.6256999,0.0492 -0.62575,-0.0492 -0.61032,-0.1466 -0.57989,-0.2402 -0.53519,-0.3279 -0.47728,-0.4077 -0.40764,-0.4773 -0.32797,-0.5351 -0.24019,-0.5799 -0.14653,-0.6104 -0.04924,-0.6257 0.04924,-0.6257 0.14653,-0.6104 0.24019,-0.5799 0.32797,-0.5351 0.40764,-0.4773 0.47728,-0.4077 0.53519,-0.3279 0.57989,-0.2402 0.61032,-0.14657 0.62575,-0.04924 z m -0.1257,-59.9492295 0.3129,0.0246 0.3051,0.0733 0.29,0.1201 0.2676,0.16399996 0.2386,0.2038 0.2038,0.2386 0.164,0.2676 0.1201,0.29 0.0733,0.3051 0.0246,0.3129 V 50.750772 l -0.0246,0.31287 -0.0733,0.30516 -0.1201,0.28994 -0.164,0.2676 -0.2038,0.23863 -0.2386,0.20383 -0.2676,0.16398 -0.29,0.12009 -0.3051,0.07327 -0.3129,0.02463 h -0.9999999 l -0.31288,-0.02463 -0.30516,-0.07327 -0.28995,-0.12009 -0.26759,-0.16398 -0.23864,-0.20383 -0.20382,-0.23863 -0.16397,-0.2676 -0.1201,-0.28994 -0.07328,-0.30516 -0.02461,-0.31287 V 0.75077246 l 0.02461,-0.3129 0.07328,-0.3051 0.1201,-0.29 0.16397,-0.2676 0.20382,-0.2386 0.23864,-0.2038 0.26759,-0.16399996 0.28995,-0.1201 0.30516,-0.0733 0.31288,-0.0246 z m -0.2497,-12.5803005 0.2441,0.0586 0.232,0.0961 0.214,0.1312 0.191,0.163 0.163,0.191 0.1312,0.214 0.0961,0.232 0.0586,0.2441 0.0197,0.2503 -0.0197,0.2503 -0.0586,0.2441 -0.0961,0.232 -0.1312,0.2141 -0.163,0.1909 -0.191,0.163 -0.214,0.1312 -0.232,0.0961 -0.2441,0.0586 -0.2502999,0.0197 -0.2503,-0.0197 -0.2441,-0.0586 -0.23199,-0.0961 -0.21407,-0.1312 -0.19092,-0.163 -0.16305,-0.1909 -0.13118,-0.2141 -0.09609,-0.232 -0.05861,-0.2441 -0.0197,-0.2503 0.0197,-0.2503 0.05861,-0.2441 0.09609,-0.232 0.13118,-0.214 0.16305,-0.191 0.19092,-0.163 0.21407,-0.1312 0.23199,-0.0961 0.2441,-0.0586 0.2503,-0.0197 z" stroke="#000" fill="#d3d3d3" stroke-width="0.5"/>
+</g>
+<g id="svg-schreibarm">
+<path d="m 47.75,-17.749228 -1.1732,0.0923 -1.1444,0.2748 -1.0873,0.4504 -1.0035,0.6149 -0.8949,0.7643 -0.7643,0.8949 -0.6149,1.0035 -0.4504,1.0873 -0.2748,1.1444 -0.0923,1.1732 0.0923,1.1733004 0.2748,1.1443 0.4504,1.0873 0.6149,1.0035 0.7643,0.8949 0.3033,0.259 v 0.1126 l -0.0806,-0.0943 -0.7457,-0.637 -0.8363,-0.5124 -0.906,-0.3753 -0.9537,-0.2289 -0.9777,-0.077 -0.9777,0.077 -0.9537,0.2289 -0.906,0.3753 -0.8362,0.5124 -0.7458,0.637 -0.637,0.7458 -0.5124,0.8362 -0.1398,0.3374 H 23.25 v 1.5 h 10.8828 l 0.0752,-0.3133 0.2552,-0.6162 0.3485,-0.5686 0.4331,-0.5071 0.5071,-0.4331 0.5686,-0.3485 0.6162,-0.2552 0.6485,-0.1557 0.6648,-0.0523 0.6649,0.0523 0.6484,0.1557 0.6162,0.2552 0.5686,0.3485 0.5071,0.4331 0.4331,0.5071 0.3485,0.5686 0.2552,0.6162 0.1557,0.64850003 0.0523,0.6648 -0.0523,0.6649 -0.1557,0.64839997 -0.2552,0.6162 -0.3485,0.5686 -0.4331,0.5071 -0.5071,0.4331 -0.5686,0.3485 -0.6162,0.2552 -0.6484,0.1557 -0.6649,0.0523 -0.6648,-0.0523 -0.6485,-0.1557 -0.6162,-0.2552 -0.5686,-0.3485 -0.5071,-0.4331 -0.4331,-0.5071 -0.3485,-0.5686 -0.2552,-0.6162 -0.0752,-0.31329997 H 23.25 V 2.2507724 h 9.2914 l 0.1398,0.3374 0.5124,0.8363 0.637,0.7457 0.7458,0.637 0.8362,0.5124 0.906,0.3753 0.9537,0.2289 0.9777,0.077 0.9777,-0.077 0.9537,-0.2289 0.906,-0.3753 0.8363,-0.5124 0.7457,-0.637 0.0806,-0.0943 V 64.188422 l -0.3033,0.25904 -0.7643,0.89491 -0.6149,1.00346 -0.4504,1.08731 -0.2748,1.14437 -0.0923,1.17326 0.0923,1.1732 0.2748,1.1444 0.4504,1.0873 0.6149,1.0035 0.7643,0.8949 0.8949,0.7643 1.0035,0.6149 1.0873,0.4504 1.1444,0.2748 1.1732,0.0923 1.1733,-0.0923 1.1443,-0.2748 1.0873,-0.4504 1.0035,-0.6149 0.8949,-0.7643 0.7643,-0.8949 0.615,-1.0035 0.4503,-1.0873 0.2748,-1.1444 0.0923,-1.1732 -0.0923,-1.17326 -0.2748,-1.14437 -0.4503,-1.08731 -0.615,-1.00346 -0.7643,-0.89491 -0.3033,-0.25904 V -4.6869276 l 0.3033,-0.259 0.7643,-0.8949 0.615,-1.0035 0.4503,-1.0873 0.2748,-1.1443 0.0923,-1.1733004 -0.0923,-1.1732 -0.2748,-1.1444 -0.4503,-1.0873 -0.615,-1.0035 -0.7643,-0.8949 -0.8949,-0.7643 -1.0035,-0.6149 -1.0873,-0.4504 -1.1443,-0.2748 z m 0.2503,85.91969 0.2441,0.05861 0.232,0.09609 0.2141,0.13118 0.1909,0.16305 0.163,0.19092 0.1312,0.21407 0.0961,0.23196 0.0586,0.24412 0.0197,0.25031 -0.0197,0.2503 -0.0586,0.2441 -0.0961,0.232 -0.1312,0.214 -0.163,0.191 -0.1909,0.163 -0.2141,0.1312 -0.232,0.0961 -0.2441,0.0586 -0.2503,0.0197 -0.2503,-0.0197 -0.2441,-0.0586 -0.232,-0.0961 -0.214,-0.1312 -0.191,-0.163 -0.163,-0.191 -0.1312,-0.214 -0.0961,-0.232 -0.0586,-0.2441 -0.0197,-0.2503 0.0197,-0.25031 0.0586,-0.24412 0.0961,-0.23196 0.1312,-0.21407 0.163,-0.19092 0.191,-0.16305 0.214,-0.13118 0.232,-0.09609 0.2441,-0.05861 0.2503,-0.0197 z m 0,-79.99999 0.2441,0.0586 0.232,0.0961 0.2141,0.1312 0.1909,0.163 0.163,0.1909 0.1312,0.2141 0.0961,0.232 0.0586,0.2441 0.0197,0.2503 -0.0197,0.2503004 -0.0586,0.2441 -0.0961,0.232 -0.1312,0.2141 -0.163,0.1909 -0.1909,0.163 -0.2141,0.1312 -0.232,0.0961 -0.2441,0.0586 -0.2503,0.0197 -0.2503,-0.0197 -0.2441,-0.0586 -0.232,-0.0961 -0.214,-0.1312 -0.191,-0.163 -0.163,-0.1909 -0.1312,-0.2141 -0.0961,-0.232 -0.0586,-0.2441 -0.0197,-0.2503004 0.0197,-0.2503 0.0586,-0.2441 0.0961,-0.232 0.1312,-0.2141 0.163,-0.1909 0.191,-0.163 0.214,-0.1312 0.232,-0.0961 0.2441,-0.0586 0.2503,-0.0197 z" stroke="#000" fill="#d3d3d3" stroke-width="0.5"/>
+</g>
+<g id="svg-haltearm">
+<path d="M 10.5,67.5 L 11.6732,67.4077 L 12.8176,67.1329 L 13.9049,66.6825 L 14.9084,66.0676 L 15.8033,65.3033 L 16.5676,64.4084 L 17.1825,63.4049 L 17.6329,62.3176 L 17.9077,61.1732 L 18,60 L 17.9077,58.8267 L 17.6329,57.6824 L 17.1825,56.5951 L 16.5676,55.5916 L 15.8033,54.6967 L 15.5,54.4377 L 15.5,-14.4377 L 15.8033,-14.6967 L 16.5676,-15.5916 L 17.1825,-16.5951 L 17.6329,-17.6824 L 17.9077,-18.8267 L 18,-20 L 17.9077,-21.1732 L 17.6329,-22.3176 L 17.1825,-23.4049 L 16.5676,-24.4084 L 15.8033,-25.3033 L 14.9084,-26.0676 L 13.9049,-26.6825 L 12.8176,-27.1329 L 11.6732,-27.4077 L 10.5,-27.5 L 9.32674,-27.4077 L 8.18236,-27.1329 L 7.09506,-26.6825 L 6.0916,-26.0676 L 5.19669,-25.3033 L 4.43236,-24.4084 L 3.81744,-23.4049 L 3.36707,-22.3176 L 3.09233,-21.1732 L 3,-20 L 3.09233,-18.8267 L 3.36707,-17.6824 L 3.81744,-16.5951 L 4.43236,-15.5916 L 5.19669,-14.6967 L 5.5,-14.4377 L 5.5,54.4377 L 5.19669,54.6967 L 4.43236,55.5916 L 3.81744,56.5951 L 3.36707,57.6824 L 3.09233,58.8267 L 3,60 L 3.09233,61.1732 L 3.36707,62.3176 L 3.81744,63.4049 L 4.43236,64.4084 L 5.19669,65.3033 L 6.0916,66.0676 L 7.09506,66.6825 L 8.18236,67.1329 L 9.32674,67.4077 z M 10.2497,-18.4197 L 10.0056,-18.4783 L 9.77361,-18.5744 L 9.55954,-18.7056 L 9.36862,-18.8686 L 9.20557,-19.0595 L 9.07439,-19.2736 L 8.9783,-19.5056 L 8.91969,-19.7497 L 8.89999,-20 L 8.91969,-20.2503 L 8.9783,-20.4944 L 9.07439,-20.7264 L 9.20557,-20.9404 L 9.36862,-21.1314 L 9.55954,-21.2944 L 9.77361,-21.4256 L 10.0056,-21.5217 L 10.2497,-21.5803 L 10.5,-21.6 L 10.7503,-21.5803 L 10.9944,-21.5217 L 11.2264,-21.4256 L 11.4404,-21.2944 L 11.6314,-21.1314 L 11.7944,-20.9404 L 11.9256,-20.7264 L 12.0217,-20.4944 L 12.0803,-20.2503 L 12.1,-20 L 12.0803,-19.7497 L 12.0217,-19.5056 L 11.9256,-19.2736 L 11.7944,-19.0595 L 11.6314,-18.8686 L 11.4404,-18.7056 L 11.2264,-18.5744 L 10.9944,-18.4783 L 10.7503,-18.4197 L 10.5,-18.4 z M 10.2497,61.5803 L 10.0056,61.5217 L 9.77361,61.4256 L 9.55954,61.2944 L 9.36862,61.1314 L 9.20557,60.9404 L 9.07439,60.7264 L 8.9783,60.4944 L 8.91969,60.2503 L 8.89999,60 L 8.91969,59.7497 L 8.9783,59.5056 L 9.07439,59.2736 L 9.20557,59.0595 L 9.36862,58.8686 L 9.55954,58.7056 L 9.77361,58.5744 L 10.0056,58.4783 L 10.2497,58.4197 L 10.5,58.4 L 10.7503,58.4197 L 10.9944,58.4783 L 11.2264,58.5744 L 11.4404,58.7056 L 11.6314,58.8686 L 11.7944,59.0595 L 11.9256,59.2736 L 12.0217,59.5056 L 12.0803,59.7497 L 12.1,60 L 12.0803,60.2503 L 12.0217,60.4944 L 11.9256,60.7264 L 11.7944,60.9404 L 11.6314,61.1314 L 11.4404,61.2944 L 11.2264,61.4256 L 10.9944,61.5217 L 10.7503,61.5803 L 10.5,61.6 z" stroke="#000" fill="#d3d3d3" stroke-width="0.5"/>
+</g>
+</defs>
+</svg>
+<style>
+:root{--bg:#0b1020;--panel:#11182e;--text:#e8eefc;--accent:#4cc9f0;--muted:#7a86a6}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{display:grid;grid-template-columns:320px 1fr;background:var(--bg);color:var(--text);font-family:system-ui,sans-serif}
+aside{padding:16px;background:var(--panel);border-right:1px solid rgba(255,255,255,0.06);overflow:auto}
+aside h1{font-size:18px;margin:0 0 12px}
+.hint{color:var(--muted);font-size:12px;line-height:1.4;margin-bottom:16px}
+.toggle-control{display:flex;align-items:center;gap:10px;padding:10px;background:rgba(76,201,240,0.1);border:1px solid rgba(76,201,240,0.3);border-radius:6px;margin-bottom:16px}
+.toggle-control label{flex:1;margin:0;cursor:pointer;font-size:13px}
+.toggle-control input{width:20px;height:20px;cursor:pointer;accent-color:var(--accent)}
+.name{color:var(--accent);font-weight:600}
+main{position:relative}
+#scene-wrap{position:absolute;inset:0;overflow:hidden}
+svg#scene{width:100%;height:100%;background-image:linear-gradient(0deg,rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:40px 40px}
+</style>
+</head>
+<body>
+<aside>
+<h1>Inverse Kinematik Demo</h1>
+<div class="hint">Ziehe den türkisen Kreis mit der Maus. Die beiden Arme berechnen automatisch die benötigten Winkel.</div>
+<div class="toggle-control">
+<input type="checkbox" id="toggle-debug-lines" checked/>
+<label for="toggle-debug-lines">Debug-Dreiecke anzeigen</label>
+</div>
+<div class="hint">
+<strong>Struktur:</strong>
+<ul style="font-size:12px;margin:8px 0;padding-left:20px">
+<li><span class="name">Cubo</span> (Basis)</li>
+<li>├─ <span class="name">Kreuzarm Links</span> → <span class="name">Schreibarm</span></li>
+<li>└─ <span class="name">Kreuzarm Rechts</span> → <span class="name">Haltearm</span></li>
+</ul>
+</div>
+</aside>
+<main>
+<div id="scene-wrap">
+<svg id="scene" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<g id="parts-container" transform="scale(2)"></g>
+<g id="debug"></g>
+</svg>
+</div>
+</main>
+<script>
+const scene = document.getElementById('scene');
+const debugLayer = document.getElementById('debug');
+let endpointHandle = null;
+let isDraggingEndpoint = false;
+
+function svgEl(name, attrs = {}) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', name);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, String(v));
+  return el;
+}
+
+function clamp(v, min, max) {
+  return Math.max(min, Math.min(max, v));
+}
+
+function centerOf(el) {
+  try {
+    const b = el.getBBox();
+    return { x: b.x + b.width / 2, y: b.y + b.height / 2 };
+  } catch {
+    return null;
+  }
+}
+
+function findPoint(root, opts = {}) {
+  const { id, anyOfIds = [], allowHeuristic = true } = opts;
+  const tryEl = (sel) => root.querySelector(sel);
+  if (id) {
+    const hit = tryEl(`#${CSS.escape(id)}`);
+    if (hit) return { el: hit, pos: centerOf(hit) };
+  }
+  for (const cand of anyOfIds) {
+    const hit = tryEl(`#${CSS.escape(cand)}`);
+    if (hit) return { el: hit, pos: centerOf(hit) };
+  }
+  const generic = root.querySelector('[data-pivot], .pivot, #pivot');
+  if (generic) return { el: generic, pos: centerOf(generic) };
+  if (!allowHeuristic) return { el: root, pos: null };
+  const idLike = Array.from(root.querySelectorAll('[id]')).find(n => /pin|pivot/i.test(n.id));
+  if (idLike) return { el: idLike, pos: centerOf(idLike) };
+  const vb = root.getAttribute('viewBox');
+  if (vb) {
+    const [minX, minY, w, h] = vb.split(/\s+/).map(Number);
+    return { el: root, pos: { x: minX + w / 2, y: minY + h / 2 } };
+  }
+  return { el: root, pos: { x: 0, y: 0 } };
+}
+
+async function loadInlineSVG(url) {
+  const svg = document.getElementById(url.replace('.svg', '')).cloneNode(true);
+  const gOuter = svgEl('g', { 'data-src': url, class: 'part' });
+  for (const n of Array.from(svg.childNodes)) {
+    gOuter.appendChild(n.cloneNode(true));
+  }
+  scene.appendChild(gOuter);
+  return { group: gOuter, root: svg };
+}
+
+function drawDebugCircle(parent, x, y, color = '#ffd166') {
+  const c = svgEl('circle', { cx: x, cy: y, r: 2.5, fill: color, class: 'debug-circle' });
+  parent.appendChild(c);
+}
+
+function buildTransform({ joint, pivot, angleDeg = 0 }) {
+  const a = angleDeg || 0;
+  return `translate(${joint.x} ${joint.y}) rotate(${a}) translate(${-pivot.x} ${-pivot.y})`;
+}
+
+class Part {
+  constructor(name, file, opts = {}) {
+    this.name = name;
+    this.file = file;
+    this.base = opts.base || false;
+    this.angle = opts.angle || 0;
+    this.parent = null;
+    this.children = [];
+    this.group = null;
+    this.pivot = null;
+    this.pins = {};
+    this.manualPins = opts.pins || null;
+    this.parentPinName = opts.parentPinName || 'pin_tip';
+    this.childPinName = opts.childPinName || 'pin_base';
+    this.anchor = opts.anchor || null;
+  }
+}
+
+class Assembly {
+  constructor(sceneSvg) {
+    this.scene = sceneSvg;
+    this.partsContainer = document.getElementById('parts-container') || sceneSvg;
+    this.parts = new Map();
+  }
+
+  register(part) {
+    this.parts.set(part.name, part);
+  }
+
+  get(name) {
+    return this.parts.get(name);
+  }
+
+  async loadPart(part) {
+    const { group } = await loadInlineSVG(part.file);
+    group.setAttribute('id', `part-${part.name}`);
+    this.partsContainer.appendChild(group);
+    part.group = group;
+    if (part.manualPins) {
+      part.pivot = part.manualPins.pivot || part.manualPins.pin_base || { x: 0, y: 0 };
+      if (part.manualPins.pin_base) part.pins['pin_base'] = part.manualPins.pin_base;
+      if (part.manualPins.pin_tip) part.pins['pin_tip'] = part.manualPins.pin_tip;
+      if (part.manualPins.pin_left) part.pins['pin_left'] = part.manualPins.pin_left;
+      if (part.manualPins.pin_right) part.pins['pin_right'] = part.manualPins.pin_right;
+    } else {
+      part.pivot = findPoint(group, { anyOfIds: ['pivot'] }).pos;
+      const pinBase = findPoint(group, { id: 'pin_base', anyOfIds: ['pinA', 'pin1'], allowHeuristic: true }).pos;
+      const pinTip = findPoint(group, { id: 'pin_tip', anyOfIds: ['pinB', 'pin2'], allowHeuristic: true }).pos;
+      if (pinBase) part.pins['pin_base'] = pinBase;
+      if (pinTip) part.pins['pin_tip'] = pinTip;
+    }
+    drawDebugCircle(group, part.pivot.x, part.pivot.y, '#ffd166');
+    if (part.pins['pin_base']) drawDebugCircle(group, part.pins['pin_base'].x, part.pins['pin_base'].y, '#ef476f');
+    if (part.pins['pin_tip']) drawDebugCircle(group, part.pins['pin_tip'].x, part.pins['pin_tip'].y, '#9d4edd');
+    if (part.pins['pin_left']) drawDebugCircle(group, part.pins['pin_left'].x, part.pins['pin_left'].y, '#4cc9f0');
+    if (part.pins['pin_right']) drawDebugCircle(group, part.pins['pin_right'].x, part.pins['pin_right'].y, '#4cc9f0');
+  }
+
+  placeBase(part) {
+    if (!part.base || !part.anchor) return;
+    const joint = { x: part.anchor.x, y: part.anchor.y };
+    const transform = buildTransform({ joint, pivot: part.pivot, angleDeg: part.angle });
+    part.group.setAttribute('transform', transform);
+  }
+
+  attachChild(parent, child) {
+    child.parent = parent;
+    parent.children.push(child);
+    const childPin = child.pins[child.childPinName] || child.pins['pin_base'] || child.pivot;
+    const parentPinAbs = this.getAbsolutePosition(parent.name, child.parentPinName);
+    if (!parentPinAbs) return;
+    const transform = buildTransform({ joint: parentPinAbs, pivot: childPin, angleDeg: child.angle });
+    child.group.setAttribute('transform', transform);
+  }
+
+  getAbsolutePosition(partName, pinName) {
+    const part = this.get(partName);
+    if (!part) return null;
+    const pin = part.pins[pinName] || part.pivot;
+    if (!pin) return null;
+    const ctm = part.group.getScreenCTM();
+    const containerCTM = this.partsContainer.getScreenCTM();
+    if (!ctm || !containerCTM) return { x: pin.x, y: pin.y };
+    const pt = this.scene.createSVGPoint();
+    pt.x = pin.x;
+    pt.y = pin.y;
+    const screenPos = pt.matrixTransform(ctm);
+    const containerPos = screenPos.matrixTransform(containerCTM.inverse());
+    return { x: containerPos.x, y: containerPos.y };
+  }
+
+  angleBetween(p1, p2) {
+    return Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+  }
+
+  distance(p1, p2) {
+    const dx = p2.x - p1.x;
+    const dy = p2.y - p1.y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  solveClosedLoop() {
+    this.updateAllTransforms();
+  }
+
+  updateAllTransforms() {
+    for (const [name, part] of this.parts) {
+      if (part.base) {
+        this.placeBase(part);
+      } else if (part.parent) {
+        const parent = part.parent;
+        const childPin = part.pins[part.childPinName] || part.pivot;
+        const parentPinAbs = this.getAbsolutePosition(parent.name, part.parentPinName);
+        if (parentPinAbs) {
+          const tr = buildTransform({ joint: parentPinAbs, pivot: childPin, angleDeg: part.angle });
+          part.group.setAttribute('transform', tr);
+        }
+      }
+    }
+    this.updateAngleDisplay();
+  }
+
+  updateAngleDisplay() {
+    const parts = ['kreuzarm_links', 'kreuzarm_rechts'];
+    parts.forEach(partName => {
+      const part = this.parts.get(partName);
+      if (!part) return;
+      const textEl = document.getElementById(`angle-text-${partName}`);
+      if (!textEl) return;
+      const sliderValue = 180 - Math.round(part.angle - 90);
+      textEl.textContent = `${sliderValue}°`;
+    });
+  }
+
+  solveIK(targetX, targetY) {
+    const cubo = this.get('cubo');
+    const kreuzL = this.get('kreuzarm_links');
+    const schreib = this.get('schreibarm');
+    const kreuzR = this.get('kreuzarm_rechts');
+    const halte = this.get('haltearm');
+    if (!cubo || !kreuzL || !schreib || !kreuzR || !halte) return false;
+    const cuboPinLeft = this.getAbsolutePosition('cubo', 'pin_left');
+    if (!cuboPinLeft) return false;
+    const a = this.distance(kreuzL.pins.pin_base, kreuzL.pins.pin_tip);
+    const b = this.distance(schreib.pins.pin_base, schreib.pins.pin_tip);
+    const c = this.distance(cuboPinLeft, { x: targetX, y: targetY });
+    if (c > a + b || c < Math.abs(a - b)) return false;
+    const cosAlpha = (a*a + c*c - b*b) / (2*a*c);
+    if (cosAlpha < -1 || cosAlpha > 1) return false;
+    const alpha = Math.acos(cosAlpha);
+    const angleAC = Math.atan2(targetY - cuboPinLeft.y, targetX - cuboPinLeft.x);
+    const angleAB = angleAC - alpha;
+    const pointB = {
+      x: cuboPinLeft.x + a * Math.cos(angleAB),
+      y: cuboPinLeft.y + a * Math.sin(angleAB)
+    };
+    const angleBC = Math.atan2(targetY - pointB.y, targetX - pointB.x);
+    const kreuzarmAngleDeg = (angleAB * 180 / Math.PI) - 90;
+    let normalizedKreuz = kreuzarmAngleDeg % 360;
+    if (normalizedKreuz < 0) normalizedKreuz += 360;
+    if (normalizedKreuz < 90 || normalizedKreuz > 270) return false;
+    const schreibarmAngleDeg = (angleBC * 180 / Math.PI) + 90;
+    this.lastPointB = pointB;
+    const cuboPinRight = this.getAbsolutePosition('cubo', 'pin_right');
+    if (!cuboPinRight) return false;
+    const aRight = this.distance(kreuzR.pins.pin_base, kreuzR.pins.pin_tip);
+    const bRight = this.distance(halte.pins.pin_base, halte.pins.pin_tip);
+    const cRight = this.distance(cuboPinRight, { x: targetX, y: targetY });
+    if (cRight > aRight + bRight || cRight < Math.abs(aRight - bRight)) return false;
+    const cosAlphaRight = (aRight*aRight + cRight*cRight - bRight*bRight) / (2*aRight*cRight);
+    if (cosAlphaRight < -1 || cosAlphaRight > 1) return false;
+    const alphaRight = Math.acos(cosAlphaRight);
+    const angleACRight = Math.atan2(targetY - cuboPinRight.y, targetX - cuboPinRight.x);
+    const angleABRight = angleACRight + alphaRight;
+    const pointBRight = {
+      x: cuboPinRight.x + aRight * Math.cos(angleABRight),
+      y: cuboPinRight.y + aRight * Math.sin(angleABRight)
+    };
+    const angleBCRight = Math.atan2(targetY - pointBRight.y, targetX - pointBRight.x);
+    const kreuzarmRightAngleDeg = (angleABRight * 180 / Math.PI) - 90;
+    let normalizedKreuzRight = kreuzarmRightAngleDeg % 360;
+    if (normalizedKreuzRight < 0) normalizedKreuzRight += 360;
+    if (normalizedKreuzRight < 90 || normalizedKreuzRight > 270) return false;
+    const haltearmAngleDeg = (angleBCRight * 180 / Math.PI) + 90;
+    this.lastPointBRight = pointBRight;
+    kreuzL.angle = normalizedKreuz;
+    schreib.angle = schreibarmAngleDeg;
+    kreuzR.angle = normalizedKreuzRight;
+    halte.angle = haltearmAngleDeg;
+    return true;
+  }
+
+  setAngle(name, angleDeg) {
+    const part = this.get(name);
+    if (!part) return;
+    part.angle = angleDeg;
+    this.solveClosedLoop();
+    updateEndpointHandle();
+  }
+
+  setTarget(x, y) {
+    const success = this.solveIK(x, y);
+    if (success) {
+      this.updateAllTransforms();
+      updateEndpointHandle();
+    }
+    return success;
+  }
+}
+
+function updateEndpointHandle() {
+  if (!endpointHandle) return;
+  const posSchreib = asm.getAbsolutePosition('schreibarm', 'pin_tip');
+  if (posSchreib) {
+    const partsContainer = document.getElementById('parts-container');
+    const pt = scene.createSVGPoint();
+    pt.x = posSchreib.x;
+    pt.y = posSchreib.y;
+    const screenPos = pt.matrixTransform(partsContainer.getScreenCTM());
+    const scenePos = screenPos.matrixTransform(scene.getScreenCTM().inverse());
+    endpointHandle.setAttribute('cx', scenePos.x);
+    endpointHandle.setAttribute('cy', scenePos.y);
+  }
+}
+
+const asm = new Assembly(scene);
+const config = [
+  {
+    name: 'cubo',
+    file: 'svg-cubo',
+    base: true,
+    angle: 0,
+    anchor: { x: 100, y: 190 },
+    pins: {
+      pivot: { x: -32, y: 22 },
+      pin_left: { x: -49, y: 22 },
+      pin_right: { x: -15, y: 22 }
+    }
+  },
+  {
+    name: 'kreuzarm_links',
+    file: 'svg-kreuzarm',
+    attachTo: 'cubo',
+    parentPinName: 'pin_left',
+    childPinName: 'pin_base',
+    angle: 0,
+    pins: {
+      pin_base: { x: -10, y: -12 },
+      pin_tip: { x: -10, y: 63 }
+    }
+  },
+  {
+    name: 'kreuzarm_rechts',
+    file: 'svg-kreuzarm',
+    attachTo: 'cubo',
+    parentPinName: 'pin_right',
+    childPinName: 'pin_base',
+    angle: 0,
+    pins: {
+      pin_base: { x: -10, y: -12 },
+      pin_tip: { x: -10, y: 63 }
+    }
+  },
+  {
+    name: 'schreibarm',
+    file: 'svg-schreibarm',
+    attachTo: 'kreuzarm_links',
+    parentPinName: 'pin_tip',
+    childPinName: 'pin_base',
+    angle: 0,
+    pins: {
+      pin_base: { x: 48, y: 68 },
+      pin_tip: { x: 48, y: -10 }
+    }
+  },
+  {
+    name: 'haltearm',
+    file: 'svg-haltearm',
+    attachTo: 'kreuzarm_rechts',
+    parentPinName: 'pin_tip',
+    childPinName: 'pin_base',
+    angle: 0,
+    pins: {
+      pin_base: { x: 10, y: 61 },
+      pin_tip: { x: 10, y: -20 }
+    }
+  }
+];
+
+async function init() {
+  for (const c of config) {
+    const p = new Part(c.name, c.file, c);
+    asm.register(p);
+    await asm.loadPart(p);
+  }
+  const base = asm.get('cubo');
+  asm.placeBase(base);
+  const kreuzL = asm.get('kreuzarm_links');
+  const kreuzR = asm.get('kreuzarm_rechts');
+  const schreibarm = asm.get('schreibarm');
+  const haltearm = asm.get('haltearm');
+  asm.attachChild(base, kreuzL);
+  asm.attachChild(base, kreuzR);
+  asm.attachChild(kreuzL, schreibarm);
+  asm.attachChild(kreuzR, haltearm);
+  kreuzL.angle = 135;
+  kreuzR.angle = 135;
+  schreibarm.angle = 0;
+  haltearm.angle = 0;
+  asm.updateAllTransforms();
+  const cuboPos = asm.getAbsolutePosition('cubo', 'pivot');
+  if (cuboPos) {
+    const partsContainer = document.getElementById('parts-container');
+    const pt = scene.createSVGPoint();
+    pt.x = cuboPos.x;
+    pt.y = cuboPos.y + 60;
+    const screenPos = pt.matrixTransform(partsContainer.getScreenCTM());
+    const scenePos = screenPos.matrixTransform(scene.getScreenCTM().inverse());
+    const angleTextGroup = svgEl('g', { id: 'angle-display' });
+    const textStyle = 'font-family: system-ui; font-size: 14px; fill: #e8eefc; font-weight: 600;';
+    const textKreuzL = svgEl('text', {
+      id: 'angle-text-kreuzarm_links',
+      x: scenePos.x - 60,
+      y: scenePos.y,
+      'text-anchor': 'end',
+      style: textStyle
+    });
+    textKreuzL.textContent = '0°';
+    angleTextGroup.appendChild(textKreuzL);
+    const textKreuzR = svgEl('text', {
+      id: 'angle-text-kreuzarm_rechts',
+      x: scenePos.x + 60,
+      y: scenePos.y,
+      'text-anchor': 'start',
+      style: textStyle
+    });
+    textKreuzR.textContent = '0°';
+    angleTextGroup.appendChild(textKreuzR);
+    scene.appendChild(angleTextGroup);
+  }
+  const cuboPinLeft = asm.getAbsolutePosition('cubo', 'pin_left');
+  const cuboPinRight = asm.getAbsolutePosition('cubo', 'pin_right');
+  if (cuboPinLeft && cuboPinRight) {
+    const cuboCenter = {
+      x: (cuboPinLeft.x + cuboPinRight.x) / 2,
+      y: (cuboPinLeft.y + cuboPinRight.y) / 2
+    };
+    const halfArmLength = 76.5;
+    const startX = cuboCenter.x;
+    const startY = cuboCenter.y - halfArmLength;
+    asm.setTarget(startX, startY);
+  }
+  createDraggableEndpoint();
+}
+
+function createDraggableEndpoint() {
+  let currentPos = asm.getAbsolutePosition('schreibarm', 'pin_tip');
+  if (!currentPos) currentPos = { x: 300, y: 150 };
+  const partsContainer = document.getElementById('parts-container');
+  const pt = scene.createSVGPoint();
+  pt.x = currentPos.x;
+  pt.y = currentPos.y;
+  const screenPos = pt.matrixTransform(partsContainer.getScreenCTM());
+  const scenePos = screenPos.matrixTransform(scene.getScreenCTM().inverse());
+  endpointHandle = svgEl('circle', {
+    cx: scenePos.x,
+    cy: scenePos.y,
+    r: 12,
+    fill: '#4cc9f0',
+    stroke: '#ffffff',
+    'stroke-width': 3,
+    class: 'endpoint-handle',
+    style: 'cursor: move; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));'
+  });
+  scene.appendChild(endpointHandle);
+  const previewCircle = svgEl('circle', {
+    cx: 0,
+    cy: 0,
+    r: 10,
+    fill: 'none',
+    stroke: '#4cc9f0',
+    'stroke-width': 2,
+    'stroke-dasharray': '5,5',
+    class: 'preview-handle',
+    style: 'display: none; opacity: 0.5; pointer-events: none;'
+  });
+  scene.appendChild(previewCircle);
+  const debugLine = svgEl('line', {
+    x1: 0,
+    y1: 0,
+    x2: 0,
+    y2: 0,
+    stroke: '#ffd166',
+    'stroke-width': 2,
+    'stroke-dasharray': '5,5',
+    class: 'debug-line',
+    style: 'display: none; opacity: 0.7; pointer-events: none;'
+  });
+  scene.appendChild(debugLine);
+  const debugLineAB = svgEl('line', {
+    x1: 0,
+    y1: 0,
+    x2: 0,
+    y2: 0,
+    stroke: '#06ffa5',
+    'stroke-width': 3,
+    class: 'debug-line-ab',
+    style: 'display: none; opacity: 0.8; pointer-events: none;'
+  });
+  scene.appendChild(debugLineAB);
+  const debugLineBC = svgEl('line', {
+    x1: 0,
+    y1: 0,
+    x2: 0,
+    y2: 0,
+    stroke: '#ff006e',
+    'stroke-width': 3,
+    class: 'debug-line-bc',
+    style: 'display: none; opacity: 0.8; pointer-events: none;'
+  });
+  scene.appendChild(debugLineBC);
+  const debugLineRight = svgEl('line', {
+    x1: 0,
+    y1: 0,
+    x2: 0,
+    y2: 0,
+    stroke: '#ff9500',
+    'stroke-width': 2,
+    'stroke-dasharray': '5,5',
+    class: 'debug-line-right',
+    style: 'display: none; opacity: 0.7; pointer-events: none;'
+  });
+  scene.appendChild(debugLineRight);
+  const debugLineABRight = svgEl('line', {
+    x1: 0,
+    y1: 0,
+    x2: 0,
+    y2: 0,
+    stroke: '#4cc9f0',
+    'stroke-width': 3,
+    class: 'debug-line-ab-right',
+    style: 'display: none; opacity: 0.8; pointer-events: none;'
+  });
+  scene.appendChild(debugLineABRight);
+  const debugLineBCRight = svgEl('line', {
+    x1: 0,
+    y1: 0,
+    x2: 0,
+    y2: 0,
+    stroke: '#9d4edd',
+    'stroke-width': 3,
+    class: 'debug-line-bc-right',
+    style: 'display: none; opacity: 0.8; pointer-events: none;'
+  });
+  scene.appendChild(debugLineBCRight);
+  const debugToggle = document.getElementById('toggle-debug-lines');
+  let showDebugLines = debugToggle ? debugToggle.checked : true;
+  const updateDebugVisibility = (visible) => {
+    const display = visible ? 'block' : 'none';
+    if (!isDraggingEndpoint) {
+      debugLine.style.display = 'none';
+      debugLineAB.style.display = 'none';
+      debugLineBC.style.display = 'none';
+      debugLineRight.style.display = 'none';
+      debugLineABRight.style.display = 'none';
+      debugLineBCRight.style.display = 'none';
+    }
+    const debugCircles = document.querySelectorAll('.debug-circle');
+    debugCircles.forEach(circle => {
+      circle.style.display = display;
+    });
+    const absolutePinCircle = document.querySelector('.debug-absolute-pin');
+    if (absolutePinCircle) {
+      absolutePinCircle.style.display = display;
+    }
+  };
+  updateDebugVisibility(showDebugLines);
+  if (debugToggle) {
+    debugToggle.addEventListener('change', (e) => {
+      showDebugLines = e.target.checked;
+      updateDebugVisibility(showDebugLines);
+    });
+  }
+  endpointHandle.addEventListener('mousedown', (e) => {
+    isDraggingEndpoint = true;
+    previewCircle.style.display = 'block';
+    if (showDebugLines) {
+      debugLine.style.display = 'block';
+      debugLineAB.style.display = 'block';
+      debugLineBC.style.display = 'block';
+      debugLineRight.style.display = 'block';
+      debugLineABRight.style.display = 'block';
+      debugLineBCRight.style.display = 'block';
+    }
+    e.preventDefault();
+  });
+  scene.addEventListener('mousemove', (e) => {
+    if (!isDraggingEndpoint) return;
+    const pt = scene.createSVGPoint();
+    pt.x = e.clientX;
+    pt.y = e.clientY;
+    const svgPt = pt.matrixTransform(scene.getScreenCTM().inverse());
+    const containerPt = pt.matrixTransform(partsContainer.getScreenCTM().inverse());
+    previewCircle.setAttribute('cx', svgPt.x);
+    previewCircle.setAttribute('cy', svgPt.y);
+    const cuboPinLeft = asm.getAbsolutePosition('cubo', 'pin_left');
+    let cuboPinLeftScene = null;
+    if (cuboPinLeft && partsContainer) {
+      const pt2 = scene.createSVGPoint();
+      pt2.x = cuboPinLeft.x;
+      pt2.y = cuboPinLeft.y;
+      const screenPos = pt2.matrixTransform(partsContainer.getScreenCTM());
+      cuboPinLeftScene = screenPos.matrixTransform(scene.getScreenCTM().inverse());
+      debugLine.setAttribute('x1', cuboPinLeftScene.x);
+      debugLine.setAttribute('y1', cuboPinLeftScene.y);
+      debugLine.setAttribute('x2', svgPt.x);
+      debugLine.setAttribute('y2', svgPt.y);
+    }
+    const success = asm.setTarget(containerPt.x, containerPt.y);
+    if (success && asm.lastPointB && cuboPinLeftScene) {
+      const pointB = asm.lastPointB;
+      const pt3 = scene.createSVGPoint();
+      pt3.x = pointB.x;
+      pt3.y = pointB.y;
+      const screenPosB = pt3.matrixTransform(partsContainer.getScreenCTM());
+      const pointBScene = screenPosB.matrixTransform(scene.getScreenCTM().inverse());
+      debugLineAB.setAttribute('x1', cuboPinLeftScene.x);
+      debugLineAB.setAttribute('y1', cuboPinLeftScene.y);
+      debugLineAB.setAttribute('x2', pointBScene.x);
+      debugLineAB.setAttribute('y2', pointBScene.y);
+      debugLineBC.setAttribute('x1', pointBScene.x);
+      debugLineBC.setAttribute('y1', pointBScene.y);
+      debugLineBC.setAttribute('x2', svgPt.x);
+      debugLineBC.setAttribute('y2', svgPt.y);
+    }
+    const cuboPinRight = asm.getAbsolutePosition('cubo', 'pin_right');
+    if (cuboPinRight && partsContainer) {
+      const pt4 = scene.createSVGPoint();
+      pt4.x = cuboPinRight.x;
+      pt4.y = cuboPinRight.y;
+      const screenPosRight = pt4.matrixTransform(partsContainer.getScreenCTM());
+      const cuboPinRightScene = screenPosRight.matrixTransform(scene.getScreenCTM().inverse());
+      debugLineRight.setAttribute('x1', cuboPinRightScene.x);
+      debugLineRight.setAttribute('y1', cuboPinRightScene.y);
+      debugLineRight.setAttribute('x2', svgPt.x);
+      debugLineRight.setAttribute('y2', svgPt.y);
+      if (asm.lastPointBRight) {
+        const pointBRight = asm.lastPointBRight;
+        const pt5 = scene.createSVGPoint();
+        pt5.x = pointBRight.x;
+        pt5.y = pointBRight.y;
+        const screenPosBRight = pt5.matrixTransform(partsContainer.getScreenCTM());
+        const pointBRightScene = screenPosBRight.matrixTransform(scene.getScreenCTM().inverse());
+        debugLineABRight.setAttribute('x1', cuboPinRightScene.x);
+        debugLineABRight.setAttribute('y1', cuboPinRightScene.y);
+        debugLineABRight.setAttribute('x2', pointBRightScene.x);
+        debugLineABRight.setAttribute('y2', pointBRightScene.y);
+        debugLineBCRight.setAttribute('x1', pointBRightScene.x);
+        debugLineBCRight.setAttribute('y1', pointBRightScene.y);
+        debugLineBCRight.setAttribute('x2', svgPt.x);
+        debugLineBCRight.setAttribute('y2', svgPt.y);
+      }
+    }
+    if (success) {
+      previewCircle.setAttribute('stroke', '#4cc9f0');
+      debugLine.setAttribute('stroke', '#4cc9f0');
+    } else {
+      previewCircle.setAttribute('stroke', '#ef476f');
+      debugLine.setAttribute('stroke', '#ef476f');
+    }
+  });
+  scene.addEventListener('mouseup', () => {
+    isDraggingEndpoint = false;
+    previewCircle.style.display = 'none';
+    debugLine.style.display = 'none';
+    debugLineAB.style.display = 'none';
+    debugLineBC.style.display = 'none';
+    debugLineRight.style.display = 'none';
+    debugLineABRight.style.display = 'none';
+    debugLineBCRight.style.display = 'none';
+  });
+  scene.addEventListener('mouseleave', () => {
+    isDraggingEndpoint = false;
+    previewCircle.style.display = 'none';
+    debugLine.style.display = 'none';
+    debugLineAB.style.display = 'none';
+    debugLineBC.style.display = 'none';
+    debugLineRight.style.display = 'none';
+    debugLineABRight.style.display = 'none';
+    debugLineBCRight.style.display = 'none';
+  });
+  return endpointHandle;
+}
+
+init().catch(err => {
+  console.error(err);
+  const warn = document.createElement('div');
+  warn.textContent = `Fehler: ${err.message}`;
+  warn.style.cssText = 'position:absolute;left:12px;top:12px;background:rgba(255,0,0,0.15);border:1px solid rgba(255,0,0,0.4);padding:8px 10px;border-radius:6px;color:#ffb4b4';
+  document.body.appendChild(warn);
+});
+</script>
+</body>
+</html>
