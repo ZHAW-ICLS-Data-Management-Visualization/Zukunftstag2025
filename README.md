@@ -54,9 +54,9 @@ Wenn wir eine interessantere Form haben wollen, müssen wir dem Roboter mehr Koo
 
 ## Koordinaten auslesen
 Mit Hilfe der Lehre können wir unsere Koordinaten ab einer Vorlage abpausen.
-<video src="demo/lehre_sm.mp4" style="width: 80%; margin: auto; display: block;"></video>
+<video src="demo/lehre_sm.mp4" controls="controls" style="width: 80%; margin: auto; display: block;"></video>
 
 ## Immer komplizierter
 Von hier an können wir immer komplizierter werden. Wir haben zum Beispiel die [🛠️ 5 Punkte eines Pentagramms (Fünzackiger Stern)](scriptS/sterndli/sterndli.ino), die wir mit einer [🛠️ mathermatischen Interpolation](scripts/sterndli_interpol/sterndli_interpol.ino) immer feiner machen können.
 
-<video src="demo/sterndli_sm.mp4" style="width: 80%; margin: auto; display: block;"></video>
+<video src="demo/sterndli_sm.mp4" controls="controls" style="width: 80%; margin: auto; display: block;"></video>
