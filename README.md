@@ -8,7 +8,7 @@ Unser Schreibroboter basiert auf dem Modell der Plotclock.
 Video: [Plotclock auf Youtube](https://www.youtube.com/watch?v=V1SwcQCX_kI)
 
 ## Koordinaten
-In der Mathematik verwenden wir Koordinaten um die Lage eines Punktes zu beschreiben. Am häufigsten verwenden wir das "kartesische" Koodrinatensystem.  
+In der Mathematik verwenden wir Koordinaten, um die Lage eines Punktes zu beschreiben. Am häufigsten verwenden wir das "kartesische" Koordinatensystem.  
 Hier liegt der Punkt D auf den x/y-Koordinaten 3, -1
 <img alt="Original Plotclock" src="demo/lex-koordinaten.png" style="width: 80%; display: block; margin: auto; background: white;">
 
@@ -20,7 +20,7 @@ oder auf
 47.219264, 8.687589 (lat/lon)  
 <img alt="Original Plotclock" src="demo/koordinaten_waedi.png" style="width: 80%; display: block; margin: auto; background: white;">
 
-## Inverwse Kinematik
+## Inverse Kinematik
 Es kommt also nur darauf an, dass man sich einig ist, welches System man verwendet. Bei unserem Schreibroboter haben wir zwei Arme, die über eine Scherenkonstruktion den Stift führen. Man nennt das "Inverse Kinematik". Es gibt auch eine Formel dafür:  
 <img alt="Original Plotclock" src="demo/formel.png" style="width: 80%; display: block; margin: auto; background: white;">
 
@@ -40,12 +40,12 @@ Wir steuern den Roboter mit Hilfen der [Arduino IDE](https://arduino.cc). Wir ve
 
 Zu Beginn geben wir unserem Roboter zwei Positionen vor, die er ansteuern soll. [🛠️ Hier ist das Skript dazu](scripts/auf_ab_ruck/auf_ab_ruck.ino).  
 
-Mit so einem Ablauf sehen wir schnell, wie die Koordinaten funktionieren. Steuere auf keinen Fall Koorindaten an, die sich ganz am Rand der Möglichkeiten des Servos befinden (kleiner als 60 resp. grösser als 140) sonst können die Motoren kaputt gehen.  
+Mit so einem Ablauf sehen wir schnell, wie die Koordinaten funktionieren. Steuere auf keinen Fall Koordinaten an, die sich ganz am Rand der Möglichkeiten des Servos befinden (kleiner als 60 resp. grösser als 140) sonst können die Motoren kaputt gehen.  
 
 Den mittleren Motor brauchen wir, um den Stift auf und ab zu bewegen, falls wir mal keinen Strich machen wollen während einer Bewegung.
 
 ## Geschmeidigere Bewegung
-Die Bewegung mit den zwei Koorinaten ist etwas ruckhaft. Wir können das etwas sanfter gestalten [🛠️ mit diesem Skript](scripts/auf_ab_manuell/auf_ab_manuell.ino).  
+Die Bewegung mit den zwei Koordinaten ist etwas ruckhaft. Wir können das etwas sanfter gestalten [🛠️ mit diesem Skript](scripts/auf_ab_manuell/auf_ab_manuell.ino).  
 
 Dieses Script verwendet eine for-Schlaufe, um die einzelnen Pixel schrittweise anzusteuern.
 
@@ -57,7 +57,7 @@ Mit Hilfe der Lehre können wir unsere Koordinaten ab einer Vorlage abpausen.
 <video src="demo/lehre_sm.mp4" controls="controls" style="width: 80%; margin: auto; display: block;"></video>
 
 ## Immer komplizierter
-Von hier an können wir immer komplizierter werden. Wir haben zum Beispiel die [🛠️ 5 Punkte eines Pentagramms (Fünzackiger Stern)](scriptS/sterndli/sterndli.ino), die wir mit einer [🛠️ mathermatischen Interpolation](scripts/sterndli_interpol/sterndli_interpol.ino) immer feiner machen können.
+Von hier an können wir immer komplizierter werden. Wir haben zum Beispiel die [🛠️ 5 Punkte eines Pentagramms (Fünzackiger Stern)](scriptS/sterndli/sterndli.ino), die wir mit einer [🛠️ mathematischen Interpolation](scripts/sterndli_interpol/sterndli_interpol.ino) immer feiner machen können.
 
 <video src="demo/sterndli_sm.mp4" controls="controls" style="width: 80%; margin: auto; display: block;"></video>
 
